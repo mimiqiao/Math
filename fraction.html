@@ -603,29 +603,10 @@
                     }
                 }
 
-                // 如果单元格被涂色，绘制斜线图案（带动画）
+                // 如果单元格被涂色，先填充背景（带动画）
                 if (cell.colorProgress > 0) {
-                    // 保存当前绘图状态
-                    ctx.save();
-                    
-                    // 设置斜线颜色和不透明度，使用更深的颜色
-                    ctx.strokeStyle = `rgba(17, 119, 109, ${0.9 * cell.colorProgress})`; // 更深的绿色
-                    ctx.lineWidth = 1.5; // 稍微粗一点的线条
-                    
-                    // 计算斜线起始和结束点，使斜线更密集
-                    const offset = Math.sin(cell.col * 0.3) * 5;
-                    const lineSpacing = 8; // 减小间距使斜线更密
-                    
-                    // 绘制密集的斜线
-                    for (let i = -drawX % lineSpacing; i < cell.width; i += lineSpacing) {
-                        ctx.beginPath();
-                        ctx.moveTo(drawX + i, drawY - 5);
-                        ctx.lineTo(drawX + i + cell.height * 1.2 + offset, drawY + cell.height + 5);
-                        ctx.stroke();
-                    }
-                    
-                    // 恢复绘图状态
-                    ctx.restore();
+                    ctx.fillStyle = `rgba(45, 185, 171, ${0.8 * cell.colorProgress})`;
+                    ctx.fillRect(drawX, drawY, cell.width, cell.height);
                 }
 
                 // 绘制单元格边框
@@ -813,33 +794,9 @@
                         }
                     }
                     
-                    // 在已绘制的月饼上添加斜线涂色效果，确保涂色覆盖到月饼上
-                    // 保存当前绘图状态
-                    ctx.save();
-                    
-                    // 设置斜线颜色和不透明度，使用更深的颜色
-                    ctx.strokeStyle = `rgba(17, 119, 109, ${0.8 * cell.colorProgress})`; // 更深的绿色
-                    ctx.lineWidth = 1.5; // 稍微粗一点的线条
-                    
-                    // 创建一个遮罩，确保斜线只在月饼区域内绘制
-                    ctx.beginPath();
-                    ctx.rect(drawX, drawY, cell.width, cell.height);
-                    ctx.clip();
-                    
-                    // 计算斜线起始和结束点，使斜线更密集
-                    const offset = Math.cos(cell.row * 0.4) * 5;
-                    const lineSpacing = 8; // 减小间距使斜线更密
-                    
-                    // 绘制密集的斜线，覆盖整个单元格
-                    for (let i = -drawX % lineSpacing; i < cell.width; i += lineSpacing) {
-                        ctx.beginPath();
-                        ctx.moveTo(drawX + i, drawY - 5);
-                        ctx.lineTo(drawX + i + cell.height * 1.2 + offset, drawY + cell.height + 5);
-                        ctx.stroke();
-                    }
-                    
-                    // 恢复绘图状态
-                    ctx.restore();
+                    // 在已绘制的月饼上添加半透明的涂色效果
+                    ctx.fillStyle = `rgba(45, 185, 171, ${0.4 * cell.colorProgress})`;
+                    ctx.fillRect(drawX, drawY, cell.width, cell.height);
                 }
             });
             
