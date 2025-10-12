@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>数学乐园 - 分数活动二</title>
+    <title>数学乐园 - 分数活动三</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
     
@@ -82,7 +82,7 @@
     <main class="container mx-auto p-4 md:p-6">
         <!-- 课程标题区 -->
         <div class="text-center mb-4 bounce-in">
-            <h2 class="text-[clamp(1.25rem,5vw,1.75rem)] font-bold text-primary text-shadow mb-2">活动二：画一画，分一分，涂一涂，找出这盒月饼的<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span></h2>
+            <h2 class="text-[clamp(1.25rem,5vw,1.75rem)] font-bold text-primary text-shadow mb-2">活动三：画一画，分一分，涂一涂，表示出指定的分数。</h2>
         </div>
         
         <!-- 操作区域 - 调整间距使各区域更加清晰 -->
@@ -96,7 +96,7 @@
                         </button>
                         <span class="text-sm text-center">画线</span>
                         
-                        <button id="eraserButton" class="w-14 h-14 rounded-full bg-gray-200 text-neutral flex items-center justify-center btn-pop opacity-50 cursor-not-allowed" disabled>
+                        <button id="eraseButton" class="w-14 h-14 rounded-full bg-gray-200 text-neutral flex items-center justify-center btn-pop opacity-50 cursor-not-allowed" disabled>
                             <i class="fa fa-eraser text-2xl"></i>
                         </button>
                         <span class="text-sm text-center">橡皮</span>
@@ -104,7 +104,7 @@
                         <button id="colorButton" class="w-14 h-14 rounded-full bg-gray-200 text-neutral flex items-center justify-center btn-pop opacity-50 cursor-not-allowed" disabled>
                             <i class="fa fa-paint-brush text-2xl"></i>
                         </button>
-                        <span class="text-sm text-center">涂出<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span></span>
+                        <span class="text-sm text-center">涂色</span>
                         
                         <button id="checkButton" class="w-14 h-14 rounded-full bg-gray-200 text-neutral flex items-center justify-center btn-pop opacity-50 cursor-not-allowed" disabled>
                             <i class="fa fa-check-circle text-2xl"></i>
@@ -121,25 +121,25 @@
             
             <!-- 中间主内容区 -->
             <div class="lg:col-span-7 order-1 lg:order-2 flex flex-col">
-                <!-- 月饼数量控制区 -->
+                <!-- 分数选择控制区 -->
                 <div class="bg-white rounded-2xl p-4 card-shadow mb-3 bounce-in">
-                    <div class="flex items-center gap-2 mb-2">
-                        <div class="bg-accent/10 text-accent p-2 rounded-full">
-                            <i class="fa fa-bell text-xl"></i>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <div class="text-lg font-semibold text-neutral w-full text-center">
+                            这里有一盒月饼，请选择要找出的分数：
                         </div>
-                        <p class="text-lg font-medium text-neutral">⚡ 请先选择月饼的数量，再开始游戏哦！</p>
-                    </div>
-                    <div class="flex flex-wrap justify-center items-center gap-4">
-                        <span class="text-lg font-semibold text-neutral w-full text-center md:w-auto md:text-right pr-0 md:pr-2">月饼数量:</span>
-                        <div class="flex items-center gap-2 w-full md:w-auto">
-                            <button id="decreaseCount" class="w-10 h-10 rounded-full border border-gray-300 bg-white text-gray-600 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                <i class="fa fa-minus"></i>
+                        <div class="flex flex-wrap justify-center gap-3">
+                            <button id="fraction-1-4" class="fraction-button w-16 h-16 rounded-xl border-2 border-gray-300 bg-white flex items-center justify-center hover:bg-gray-100 transition-colors">
+                                <span class="fraction text-xl"><span class="numerator">1</span><span class="denominator">4</span></span>
                             </button>
-                            <input type="range" id="mooncakeSlider" min="0" max="8" step="1" value="3" class="w-48 h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
-                            <button id="increaseCount" class="w-10 h-10 rounded-full border border-gray-300 bg-white text-gray-600 flex items-center justify-center hover:bg-gray-100 transition-colors">
-                                <i class="fa fa-plus"></i>
+                            <button id="fraction-1-8" class="fraction-button w-16 h-16 rounded-xl border-2 border-gray-300 bg-white flex items-center justify-center hover:bg-gray-100 transition-colors">
+                                <span class="fraction text-xl"><span class="numerator">1</span><span class="denominator">8</span></span>
                             </button>
-                            <div id="countValue" class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center text-xl font-bold shadow-lg">6</div>
+                            <button id="fraction-1-16" class="fraction-button w-16 h-16 rounded-xl border-2 border-gray-300 bg-white flex items-center justify-center hover:bg-gray-100 transition-colors">
+                                <span class="fraction text-xl"><span class="numerator">1</span><span class="denominator">16</span></span>
+                            </button>
+                        </div>
+                        <div id="selectedFractionDisplay" class="w-full text-center text-primary text-lg font-bold mt-2 hidden">
+                            已选择: <span id="fractionValue" class="fraction text-2xl"><span class="numerator">1</span><span class="denominator">4</span></span>
                         </div>
                     </div>
                 </div>
@@ -155,17 +155,17 @@
             
             <!-- 右侧操作提示和反馈区 -->
             <div class="lg:col-span-3 order-3 flex flex-col">
-                <!-- 提示卡片 -->
-                <div class="bg-white rounded-2xl p-4 card-shadow mb-3 bounce-in" style="animation-delay: 0.1s">
-                    <div class="flex items-start gap-2">
-                        <div class="bg-primary/10 text-primary p-2 rounded-full mt-0.5">
-                            <i class="fa fa-lightbulb-o text-xl"></i>
+                    <!-- 提示卡片 -->
+                    <div class="bg-white rounded-2xl p-4 card-shadow mb-3 bounce-in" style="animation-delay: 0.1s">
+                        <div class="flex items-start gap-2">
+                            <div class="bg-primary/10 text-primary p-2 rounded-full mt-0.5">
+                                <i class="fa fa-lightbulb-o text-xl"></i>
+                            </div>
+                            <p id="instruction-text" class="text-[clamp(1rem,3vw,1.25rem)] text-gray-700">
+                                第一步：请先选择要找出的分数，然后点击画笔按钮开始游戏
+                            </p>
                         </div>
-                        <p id="instruction-text" class="text-[clamp(1rem,3vw,1.25rem)] text-gray-700">
-                            第一步：点击画笔按钮，在盒子上画一条线，试着把月饼平均分成两部分
-                        </p>
                     </div>
-                </div>
                 
                 <div id="feedback" class="hidden bg-white rounded-2xl p-5 card-shadow flex-grow bounce-in flex flex-col items-center text-center">
                     <div id="feedbackIcon" class="text-5xl mb-4 text-accent float"></div>
@@ -180,14 +180,14 @@
     </main>
     
     <!-- 页脚 -->
-    <footer class="mt-4 bg-white py-3 px-6 text-center text-neutral text-xs">
-        <p>分数的认识 © 小学三年级数学学习 | 杭州信达外国语学校</p>
+    <footer class="mt-4 bg-white py-3 px-6 text-neutral text-xs">
+        <div class="flex justify-between items-center">
+            <p class="text-center w-full">分数的认识 © 小学三年级数学学习 | 杭州信达外国语学校</p>
+            <button id="backButton" class="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center btn-pop z-50 shadow-lg">
+                <i class="fa fa-arrow-left text-2xl"></i>
+            </button>
+        </div>
     </footer>
-
-    <!-- 右下角跳转按钮 -->
-    <a href="fv3.html" target="_blank" class="fixed bottom-6 right-6 w-14 h-14 bg-accent text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-110 z-50">
-        <i class="fa fa-arrow-right text-xl"></i>
-    </a>
 
     <script>
         // 获取Canvas元素和上下文
@@ -196,7 +196,7 @@
         
         // 获取按钮和其他DOM元素
         const drawButton = document.getElementById('drawButton');
-        const eraserButton = document.getElementById('eraserButton');
+        const eraseButton = document.getElementById('eraseButton');
         const colorButton = document.getElementById('colorButton');
         const checkButton = document.getElementById('checkButton');
         const resetButton = document.getElementById('resetButton');
@@ -206,83 +206,153 @@
         const feedbackIcon = document.getElementById('feedbackIcon');
         const feedbackText = document.getElementById('feedbackText');
         const feedbackExplanation = document.getElementById('feedbackExplanation');
-        const mooncakeSlider = document.getElementById('mooncakeSlider');
-        const countValue = document.getElementById('countValue');
+        const fraction14Button = document.getElementById('fraction-1-4');
+        const fraction18Button = document.getElementById('fraction-1-8');
+        const fraction116Button = document.getElementById('fraction-1-16');
+        const selectedFractionDisplay = document.getElementById('selectedFractionDisplay');
+        const fractionValue = document.getElementById('fractionValue');
         
         // 应用状态
-        let mooncakeCount = 6; // 初始月饼数量
+        let mooncakeCount = 16; // 固定为16个月饼
+        let selectedFraction = { numerator: 1, denominator: 4 }; // 默认选择1/4
         let isDrawing = false;
         let isErasing = false;
         let isColoring = false;
         let isAnimating = false;
         let hasSplit = false;
         let isMouseDown = false;
-        let splitLine = [];
+        let splitLines = []; // 多条分割线的数组
         let cells = [];
         let cellWidth, cellHeight;
         let rows, cols; // 动态计算行列数
-        // 这些偏移量可以被修改，但为了确保月饼不会移动，它们应该保持为0
         let currentOffsetLeft = 0;
         let currentOffsetRight = 0;
         let targetOffsetLeft = 0;
         let targetOffsetRight = 0;
+        let isFractionSelected = false; // 标记是否已选择分数
+        let currentSplitLine = []; // 当前正在绘制的分割线
         
-        // 定义可选的月饼数量数组
-        const availableCounts = [1, 2, 3, 4, 6, 8, 9, 10, 12];
+        // 找到最接近的网格线位置
+        function snapToGrid(x, y) {
+            // 计算最近的垂直网格线位置
+            const closestCol = Math.round(x / cellWidth);
+            const snappedX = Math.min(Math.max(closestCol * cellWidth, 0), canvas.width);
+            
+            // 计算最近的水平网格线位置
+            const closestRow = Math.round(y / cellHeight);
+            const snappedY = Math.min(Math.max(closestRow * cellHeight, 0), canvas.height);
+            
+            return { x: snappedX, y: snappedY };
+        }
         
-        // 初始化滑杆控制
-        function initSlider() {
-            const slider = document.getElementById('mooncakeSlider');
-            const decreaseBtn = document.getElementById('decreaseCount');
-            const increaseBtn = document.getElementById('increaseCount');
-            const countDisplay = document.getElementById('countValue');
+        // 辅助函数：检查点是否靠近分割线
+        function isPointNearLine(point, line, threshold = 10) {
+            const { x, y } = point;
             
-            // 设置初始显示值
-            countDisplay.textContent = mooncakeCount;
-            
-            // 找到初始值在数组中的索引
-            const initialIndex = availableCounts.indexOf(mooncakeCount);
-            if (initialIndex !== -1) {
-                slider.value = initialIndex;
+            // 检查是否靠近线段的起点或终点
+            for (let i = 0; i < line.length; i++) {
+                const linePoint = line[i];
+                const distance = Math.sqrt(
+                    Math.pow(x - linePoint.x, 2) + 
+                    Math.pow(y - linePoint.y, 2)
+                );
+                
+                if (distance < threshold) {
+                    return true;
+                }
             }
             
-            // 滑杆变化事件
-            slider.addEventListener('input', () => {
-                if (!hasSplit && splitLine.length === 0) {
-                    const index = parseInt(slider.value);
-                    mooncakeCount = availableCounts[index];
-                    countDisplay.textContent = mooncakeCount;
-                    setupCanvas();
+            // 检查是否靠近线段的任何部分
+            for (let i = 0; i < line.length - 1; i++) {
+                const p1 = line[i];
+                const p2 = line[i + 1];
+                
+                // 计算点到线段的距离
+                const lineLengthSquared = Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2);
+                if (lineLengthSquared === 0) {
+                    // 线段是一个点
+                    const distance = Math.sqrt(Math.pow(x - p1.x, 2) + Math.pow(y - p1.y, 2));
+                    return distance < threshold;
                 }
+                
+                let t = ((x - p1.x) * (p2.x - p1.x) + (y - p1.y) * (p2.y - p1.y)) / lineLengthSquared;
+                t = Math.max(0, Math.min(1, t));
+                
+                const closestPoint = {
+                    x: p1.x + t * (p2.x - p1.x),
+                    y: p1.y + t * (p2.y - p1.y)
+                };
+                
+                const distance = Math.sqrt(
+                    Math.pow(x - closestPoint.x, 2) + 
+                    Math.pow(y - closestPoint.y, 2)
+                );
+                
+                if (distance < threshold) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        // 初始化分数选择按钮
+        function initFractionButtons() {
+            // 1/4分数按钮
+            fraction14Button.addEventListener('click', () => {
+                selectFraction(1, 4);
             });
             
-            // 减号按钮事件
-            decreaseBtn.addEventListener('click', () => {
-                if (!hasSplit && splitLine.length === 0) {
-                    let currentIndex = availableCounts.indexOf(mooncakeCount);
-                    if (currentIndex > 0) {
-                        currentIndex--;
-                        slider.value = currentIndex;
-                        mooncakeCount = availableCounts[currentIndex];
-                        countDisplay.textContent = mooncakeCount;
-                        setupCanvas();
-                    }
-                }
+            // 1/8分数按钮
+            fraction18Button.addEventListener('click', () => {
+                selectFraction(1, 8);
             });
             
-            // 加号按钮事件
-            increaseBtn.addEventListener('click', () => {
-                if (!hasSplit && splitLine.length === 0) {
-                    let currentIndex = availableCounts.indexOf(mooncakeCount);
-                    if (currentIndex < availableCounts.length - 1) {
-                        currentIndex++;
-                        slider.value = currentIndex;
-                        mooncakeCount = availableCounts[currentIndex];
-                        countDisplay.textContent = mooncakeCount;
-                        setupCanvas();
-                    }
-                }
+            // 1/16分数按钮
+            fraction116Button.addEventListener('click', () => {
+                selectFraction(1, 16);
             });
+        }
+        
+        // 选择分数
+        function selectFraction(numerator, denominator) {
+            selectedFraction = { numerator, denominator };
+            isFractionSelected = true;
+            
+            // 用户不需要显示已选择分数的信息，所以注释掉这部分代码
+            // fractionValue.innerHTML = `<span class="numerator">${numerator}</span><span class="denominator">${denominator}</span>`;
+            // selectedFractionDisplay.classList.remove('hidden');
+            
+            // 更新按钮样式
+            const fractionButtons = document.querySelectorAll('.fraction-button');
+            fractionButtons.forEach(btn => {
+                btn.classList.remove('border-primary', 'bg-blue-50');
+                btn.classList.add('border-gray-300', 'bg-white');
+            });
+            
+            // 高亮选中的按钮
+            if (denominator === 4) {
+                fraction14Button.classList.remove('border-gray-300', 'bg-white');
+                fraction14Button.classList.add('border-primary', 'bg-blue-50');
+            } else if (denominator === 8) {
+                fraction18Button.classList.remove('border-gray-300', 'bg-white');
+                fraction18Button.classList.add('border-primary', 'bg-blue-50');
+            } else if (denominator === 16) {
+                fraction116Button.classList.remove('border-gray-300', 'bg-white');
+                fraction116Button.classList.add('border-primary', 'bg-blue-50');
+            }
+            
+            // 启用绘制按钮
+            drawButton.disabled = false;
+            drawButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+            drawButton.classList.add('bg-primary', 'text-white');
+            
+            // 更新指令文本
+            instructionText.innerHTML = 
+                "太好了！现在请点击画笔按钮，然后在盒子上画一条线，试着把这盒月饼平均分成" + denominator + "份";
+            
+            // 重置画布
+            resetAll();
         }
         
         // 设置Canvas尺寸和月饼布局
@@ -310,33 +380,9 @@
         
         // 根据月饼数量计算最佳行列布局
         function calculateGridLayout() {
-            // 根据用户要求实现不同数量月饼的布局
-            switch(mooncakeCount) {
-                case 1:
-                    // 1个月饼：2行2列
-                    rows = 2;
-                    cols = 2;
-                    break;
-                case 3:
-                    // 3个月饼：2行6列
-                    rows = 2;
-                    cols = 6;
-                    break;
-                case 9:
-                    // 9个月饼：6行6列
-                    rows = 6;
-                    cols = 6;
-                    break;
-                case 12:
-                    // 12个月饼：8行6列
-                    rows = 8;
-                    cols = 6;
-                    break;
-                default:
-                    // 其它数量：保持原布局（每行格子数=月饼数量，每列格子数=4）
-                    cols = mooncakeCount;
-                    rows = 4;
-            }
+            // 固定为16个月饼的布局：8行8列
+            rows = 8;
+            cols = 8;
         }
         
         // 初始化单元格数据
@@ -460,16 +506,33 @@
             }
             
             // 绘制分割线
-            if (splitLine.length > 0) {
+            // 绘制所有已完成的分割线
+            splitLines.forEach(line => {
+                if (line.length > 0) {
+                    ctx.strokeStyle = '#EC4899';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(line[0].x, line[0].y);
+
+                    for (let i = 1; i < line.length; i++) {
+                        ctx.lineTo(line[i].x, line[i].y);
+                    }
+
+                    ctx.stroke();
+                }
+            });
+            
+            // 绘制当前正在绘制的分割线
+            if (currentSplitLine.length > 0) {
                 ctx.strokeStyle = '#EC4899';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
-                ctx.moveTo(splitLine[0].x, splitLine[0].y);
-                
-                for (let i = 1; i < splitLine.length; i++) {
-                    ctx.lineTo(splitLine[i].x, splitLine[i].y);
+                ctx.moveTo(currentSplitLine[0].x, currentSplitLine[0].y);
+
+                for (let i = 1; i < currentSplitLine.length; i++) {
+                    ctx.lineTo(currentSplitLine[i].x, currentSplitLine[i].y);
                 }
-                
+
                 ctx.stroke();
             }
             
@@ -531,7 +594,7 @@
                     );
                     
                     if (hasColoredCell) {
-                        ctx.fillStyle = 'rgba(45, 185, 171, 0.2)';
+                        ctx.fillStyle = 'rgba(45, 185, 171, 0.6)';
                         ctx.fillRect(bigCellX, bigCellY, bigCellWidth, bigCellHeight);
                     }
                     
@@ -590,11 +653,13 @@
             const drawnMooncakes = new Set();
             
             cells.forEach(cell => {
-                // 不使用任何偏移，直接使用原始位置
-                const drawX = cell.x;
-                const drawY = cell.y;
+                let drawX = cell.x;
+                let drawY = cell.y;
 
-                // 如果单元格被涂色，先填充背景
+                // 不应用任何偏移，确保单元格位置不变
+                // 移除所有可能导致移动的偏移计算
+
+                // 如果单元格被涂色，先填充背景（带动画）
                 if (cell.colorProgress > 0) {
                     ctx.fillStyle = `rgba(45, 185, 171, ${0.8 * cell.colorProgress})`;
                     ctx.fillRect(drawX, drawY, cell.width, cell.height);
@@ -614,7 +679,7 @@
                     
                     drawnMooncakes.add(cell.mooncakeIndex);
                     
-                    // 计算2x2大格子的边界
+                    // 计算2x2大格子的边界和偏移后的位置
                     const bigCellWidth = cell.width * 2;
                     const bigCellHeight = cell.height * 2;
                     
@@ -635,61 +700,61 @@
                             // 横向分割线：绘制上下两半
                             
                             // 绘制上半个月饼
-                            if (leftCells.length > 0) {
-                                // 找到最左上角的上方单元格
-                                const topCell = leftCells.sort((a, b) => {
-                                    if (a.row !== b.row) return a.row - b.row;
-                                    return a.col - b.col;
-                                })[0];
-                                const topX = cell.x; // 使用原始单元格的x坐标
-                                const topY = topCell.y; // 不使用偏移
-                                drawHalfMooncake(topX, topY, bigCellWidth, bigCellHeight, true, true);
-                            }
-                            
-                            // 绘制下半个月饼
-                            if (rightCells.length > 0) {
-                                // 找到最左上角的下方单元格
-                                const bottomCell = rightCells.sort((a, b) => {
-                                    if (a.row !== b.row) return a.row - b.row;
-                                    return a.col - b.col;
-                                })[0];
-                                const bottomX = cell.x; // 使用原始单元格的x坐标
-                                // 计算下半个月饼的正确位置
-                                const bottomY = bottomCell.y - cell.height; // 不使用偏移
-                                drawHalfMooncake(bottomX, bottomY, bigCellWidth, bigCellHeight, false, true);
-                            }
+                if (leftCells.length > 0) {
+                    // 找到最左上角的上方单元格
+                    const topCell = leftCells.sort((a, b) => {
+                        if (a.row !== b.row) return a.row - b.row;
+                        return a.col - b.col;
+                    })[0];
+                    const topX = cell.x; // 使用原始单元格的x坐标确保左右对齐
+                    const topY = cell.y; // 不进行任何移动，直接使用原始单元格的y坐标
+                    drawHalfMooncake(topX, topY, bigCellWidth, bigCellHeight, true, true);
+                }
+                
+                // 绘制下半个月饼
+                if (rightCells.length > 0) {
+                    // 找到最左上角的下方单元格
+                    const bottomCell = rightCells.sort((a, b) => {
+                        if (a.row !== b.row) return a.row - b.row;
+                        return a.col - b.col;
+                    })[0];
+                    const bottomX = cell.x; // 使用原始单元格的x坐标确保左右对齐
+                    const bottomY = cell.y; // 不进行任何移动，直接使用原始单元格的y坐标
+                    drawHalfMooncake(bottomX, bottomY, bigCellWidth, bigCellHeight, false, true);
+                }
                         } else {
                             // 纵向分割线：绘制左右两半
                             
-                            // 绘制左侧半月饼
+                            // 绘制左侧半个月饼
                             if (leftCells.length > 0) {
                                 // 找到最左上角的左侧单元格
                                 const leftCell = leftCells.sort((a, b) => {
                                     if (a.row !== b.row) return a.row - b.row;
                                     return a.col - b.col;
                                 })[0];
-                                const leftX = leftCell.x; // 不使用偏移
-                                const leftY = cell.y; // 使用原始单元格的y坐标
+                                const leftX = cell.x; // 不进行任何移动，直接使用原始单元格的x坐标
+                                const leftY = cell.y; // 使用原始单元格的y坐标确保上下对齐
                                 drawHalfMooncake(leftX, leftY, bigCellWidth, bigCellHeight, true, false);
                             }
                             
-                            // 绘制右侧半月饼
+                            // 绘制右侧半个月饼
                             if (rightCells.length > 0) {
                                 // 找到最左上角的右侧单元格
                                 const rightCell = rightCells.sort((a, b) => {
                                     if (a.row !== b.row) return a.row - b.row;
                                     return a.col - b.col;
                                 })[0];
-                                // 计算右侧半月饼的正确位置
-                                const rightX = rightCell.x - cell.width; // 不使用偏移
-                                const rightY = cell.y; // 使用原始单元格的y坐标
+                                const rightX = cell.x; // 不进行任何移动，直接使用原始单元格的x坐标
+                                const rightY = cell.y; // 使用原始单元格的y坐标确保上下对齐
                                 drawHalfMooncake(rightX, rightY, bigCellWidth, bigCellHeight, false, false);
                             }
                         }
                     } else {
-                        // 未被分割的月饼，不使用任何偏移
-                        const bigCellX = cell.x;
-                        const bigCellY = cell.y;
+                        // 未被分割的月饼，不进行任何移动
+                        let bigCellX = cell.x;
+                        let bigCellY = cell.y;
+                        
+                        // 移除所有偏移计算，确保月饼位置不变
                         
                         // 计算月饼位置和大小
                         const mooncakeSize = Math.min(bigCellWidth, bigCellHeight) * 0.9;
@@ -746,15 +811,31 @@
                 }
             });
             
-            // 绘制分割线
-            if (splitLine.length > 0) {
+            // 绘制所有分割线
+            splitLines.forEach(line => {
+                if (line.length > 0) {
+                    ctx.strokeStyle = '#EC4899';
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(line[0].x, line[0].y);
+
+                    for (let i = 1; i < line.length; i++) {
+                        ctx.lineTo(line[i].x, line[i].y);
+                    }
+
+                    ctx.stroke();
+                }
+            });
+            
+            // 绘制当前正在绘制的分割线
+            if (currentSplitLine.length > 0) {
                 ctx.strokeStyle = '#EC4899';
                 ctx.lineWidth = 4;
                 ctx.beginPath();
-                ctx.moveTo(splitLine[0].x, splitLine[0].y);
+                ctx.moveTo(currentSplitLine[0].x, currentSplitLine[0].y);
 
-                for (let i = 1; i < splitLine.length; i++) {
-                    ctx.lineTo(splitLine[i].x, splitLine[i].y);
+                for (let i = 1; i < currentSplitLine.length; i++) {
+                    ctx.lineTo(currentSplitLine[i].x, currentSplitLine[i].y);
                 }
 
                 ctx.stroke();
@@ -784,7 +865,7 @@
             gradient.addColorStop(0.6, '#FFB74D'); // 主色
             gradient.addColorStop(1, '#F57C00'); // 阴影
             
-            // 绘制半月饼
+            // 绘制半个月饼
             ctx.fillStyle = gradient;
             ctx.beginPath();
             if (isHorizontalSplit) {
@@ -857,12 +938,8 @@
         
         // 动画更新函数
         function updateAnimation() {
-            // 保持所有偏移量为0，确保月饼不移动
-            currentOffsetLeft = 0;
-            currentOffsetRight = 0;
-            targetOffsetLeft = 0;
-            targetOffsetRight = 0;
-
+            // 移除所有偏移量相关的代码，确保月饼位置不变
+            
             // 更新涂色动画
             cells.forEach(cell => {
                 if (cell.isColored && cell.colorProgress < 1) {
@@ -873,15 +950,16 @@
                     if (cell.colorProgress < 0) cell.colorProgress = 0;
                 }
             });
-
+            
             // 检查动画是否完成，但保持分割状态
+            // 只检查涂色动画，不再检查偏移量动画
             if (cells.every(cell => (cell.isColored && cell.colorProgress >= 1) || 
                                    (!cell.isColored && cell.colorProgress <= 0))) {
                 isAnimating = false;
             }
-
+            
             drawCanvas();
-
+            
             // 如果仍在动画中，继续请求下一帧
             if (isAnimating) {
                 requestAnimationFrame(updateAnimation);
@@ -890,52 +968,67 @@
         
         // 确定单元格是在分割线的左侧/右侧或上侧/下侧
         function determineCellPositions() {
-            if (splitLine.length < 2) return;
+            if (splitLines.length === 0) return;
 
-            // 使用简化的算法：计算每个单元格中心相对于分割线的位置
-            const lineStart = splitLine[0];
-            const lineEnd = splitLine[splitLine.length - 1];
-
-            // 判断分割线是横向还是纵向
-            const isHorizontal = Math.abs(lineEnd.x - lineStart.x) > Math.abs(lineEnd.y - lineStart.y);
-            
-            // 首先确定每个单元格在分割线的哪一侧
+            // 首先重置所有单元格的分割状态
             cells.forEach(cell => {
-                const cellCenter = {
-                    x: cell.x + cell.width / 2,
-                    y: cell.y + cell.height / 2
-                };
+                cell.isLeft = false;
+                cell.isHorizontalSplit = false;
+            });
 
-                // 计算点到直线的交叉乘积以确定位置
-                const crossProduct = 
-                    (lineEnd.x - lineStart.x) * (cellCenter.y - lineStart.y) - 
-                    (lineEnd.y - lineStart.y) * (cellCenter.x - lineStart.x);
+            // 对于每条分割线，确定单元格在分割线的哪一侧
+            splitLines.forEach(line => {
+                if (line.length < 2) return;
 
-                // 记录分割线方向
-                cell.isHorizontalSplit = isHorizontal;
-                
-                // 改进的方向判断：确保无论分割线绘制方向如何，都能正确判断左右/上下
-                if (isHorizontal) {
-                    // 横向分割线：true表示上方，false表示下方
-                    // 使用线段的实际斜率和位置关系来确定方向
-                    if (lineEnd.x > lineStart.x) {
-                        // 从左到右画的横线
-                        cell.isLeft = crossProduct < 0;
+                const lineStart = line[0];
+                const lineEnd = line[line.length - 1];
+
+                // 判断分割线是横向还是纵向
+                const isHorizontal = Math.abs(lineEnd.x - lineStart.x) > Math.abs(lineEnd.y - lineStart.y);
+
+                // 确定每个单元格在这条分割线的哪一侧
+                cells.forEach(cell => {
+                    const cellCenter = {
+                        x: cell.x + cell.width / 2,
+                        y: cell.y + cell.height / 2
+                    };
+
+                    // 计算点到直线的交叉乘积以确定位置
+                    const crossProduct = 
+                        (lineEnd.x - lineStart.x) * (cellCenter.y - lineStart.y) - 
+                        (lineEnd.y - lineStart.y) * (cellCenter.x - lineStart.x);
+
+                    // 记录分割线方向
+                    cell.isHorizontalSplit = isHorizontal;
+                    
+                    // 改进的方向判断：确保无论分割线绘制方向如何，都能正确判断左右/上下
+                    let isLeft;
+                    if (isHorizontal) {
+                        // 横向分割线：true表示上方，false表示下方
+                        // 使用线段的实际斜率和位置关系来确定方向
+                        if (lineEnd.x > lineStart.x) {
+                            // 从左到右画的横线
+                            isLeft = crossProduct < 0;
+                        } else {
+                            // 从右到左画的横线
+                            isLeft = crossProduct > 0;
+                        }
                     } else {
-                        // 从右到左画的横线
-                        cell.isLeft = crossProduct > 0;
+                        // 纵向分割线：true表示左侧，false表示右侧
+                        // 使用线段的实际斜率和位置关系来确定方向
+                        if (lineEnd.y > lineStart.y) {
+                            // 从上到下画的竖线
+                            isLeft = crossProduct > 0;
+                        } else {
+                            // 从下到上画的竖线
+                            isLeft = crossProduct < 0;
+                        }
                     }
-                } else {
-                    // 纵向分割线：true表示左侧，false表示右侧
-                    // 使用线段的实际斜率和位置关系来确定方向
-                    if (lineEnd.y > lineStart.y) {
-                        // 从上到下画的竖线
-                        cell.isLeft = crossProduct > 0;
-                    } else {
-                        // 从下到上画的竖线
-                        cell.isLeft = crossProduct < 0;
-                    }
-                }
+
+                    // 如果单元格在左侧或上方，设置isLeft为true
+                    // 对于多条分割线，我们取逻辑与运算，只有在所有分割线的同一侧才会被认为是同一区域
+                    cell.isLeft = cell.isLeft && isLeft;
+                });
             });
 
             // 检查并处理被分割线穿过的月饼
@@ -964,15 +1057,14 @@
                 }
             });
 
-            // 禁用月饼移动，设置分割状态但不设置偏移量
-            hasSplit = true;
-            isAnimating = false; // 立即停止动画
-            
-            // 重置所有偏移量为0，确保月饼不移动
-            currentOffsetLeft = 0;
-            currentOffsetRight = 0;
+            // 不设置任何偏移量 - 确保月饼位置不变
             targetOffsetLeft = 0;
             targetOffsetRight = 0;
+
+            // 开始分割动画
+            hasSplit = true;
+            isAnimating = true;
+            updateAnimation();
 
             // 为分割线添加轻微的脉动效果
             animateSplitLine();
@@ -980,7 +1072,7 @@
         
         // 分割线脉动动画
         function animateSplitLine() {
-            if (!hasSplit || splitLine.length < 2) return;
+            if (!hasSplit || splitLines.length === 0) return;
             
             let opacity = 1;
             let increasing = false;
@@ -996,17 +1088,21 @@
                     if (opacity <= 0.7) increasing = true;
                 }
                 
-                // 重绘分割线以更新透明度
-                ctx.strokeStyle = `rgba(236, 72, 153, ${opacity})`;
-                ctx.lineWidth = 4;
-                ctx.beginPath();
-                ctx.moveTo(splitLine[0].x, splitLine[0].y);
-                
-                for (let i = 1; i < splitLine.length; i++) {
-                    ctx.lineTo(splitLine[i].x, splitLine[i].y);
-                }
-                
-                ctx.stroke();
+                // 重绘所有分割线以更新透明度
+                splitLines.forEach(line => {
+                    if (line.length > 0) {
+                        ctx.strokeStyle = `rgba(236, 72, 153, ${opacity})`;
+                        ctx.lineWidth = 4;
+                        ctx.beginPath();
+                        ctx.moveTo(line[0].x, line[0].y);
+                        
+                        for (let i = 1; i < line.length; i++) {
+                            ctx.lineTo(line[i].x, line[i].y);
+                        }
+                        
+                        ctx.stroke();
+                    }
+                });
                 
                 requestAnimationFrame(pulse);
             }
@@ -1016,7 +1112,8 @@
         
         // 检查答案是否正确
         function checkAnswer() {
-            const halfCount = mooncakeCount / 2;
+            // 计算应该涂色的月饼数量
+            const targetCount = mooncakeCount * selectedFraction.numerator / selectedFraction.denominator;
             
             // 创建一个映射，记录每个月饼对应的单元格
             const mooncakeCellsMap = new Map();
@@ -1029,7 +1126,7 @@
                 }
             });
             
-            // 计算涂色的月饼数量（包括完整月饼和半月饼）
+            // 计算涂色的月饼数量（包括完整月饼和半个月饼）
             let coloredMooncakeCount = 0;
             
             // 遍历每个月饼
@@ -1047,7 +1144,7 @@
                         // 如果两侧都被涂色，算一个完整月饼
                         coloredMooncakeCount += 1;
                     } else if (leftColored || rightColored) {
-                        // 如果只有一侧被涂色，算半月饼
+                        // 如果只有一侧被涂色，算半个月饼
                         coloredMooncakeCount += 0.5;
                     }
                 } else {
@@ -1059,37 +1156,61 @@
                 }
             });
             
-            // 计算包含月饼的格子总数
-            const totalCellsWithMooncakes = cells.filter(cell => cell.mooncakeIndex !== -1).length;
-            
-            // 计算被涂色的格子数量
-            const coloredCellsCount = cells.filter(cell => cell.isColored && cell.mooncakeIndex !== -1).length;
-            
-            // 计算预期的涂色格子数量（总格子数的1/2）
-            const expectedColoredCells = totalCellsWithMooncakes / 2;
-            
-            // 检查是否涂色了预期格子数的一半（考虑浮点数精度问题）
-            if (Math.abs(coloredCellsCount - expectedColoredCells) > 0.01) {
+            // 检查是否涂色了正确的数量（考虑浮点数精度问题）
+            if (Math.abs(coloredMooncakeCount - targetCount) > 0.01) {
                 showFeedback(false, 
                     "再试试吧！", 
-                    `想一想：你涂色的格子数量不对哦！`);
+                    `看着<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>想一想：你把${mooncakeCount}个月饼平均分了吗？平均分成了几份？现在要涂出几份？`);
                 return;
             }
 
+            // 检查是否存在分割线
+            const hasSplitLines = splitLines.length > 0;
+            
             // 检查涂色的是否是一整个部分
-            const firstColoredIsLeft = cells.find(cell => cell.isColored && cell.mooncakeIndex !== -1)?.isLeft;
+            const firstColoredIsLeft = cells.find(cell => cell.isColored)?.isLeft;
             const allSameSide = cells.every(cell => 
-                !cell.isColored || cell.mooncakeIndex === -1 || cell.isLeft === firstColoredIsLeft
+                !cell.isColored || cell.isLeft === firstColoredIsLeft
             );
+
+            // 如果有分割线，检查是否按照分割线取了1份
+            if (hasSplitLines) {
+                // 检查每个被分割的月饼是否只涂了其中一部分
+                let allSplitMoonsHaveOnePart = true;
+                
+                mooncakeCellsMap.forEach((moonCells, mooncakeIndex) => {
+                    const hasLeft = moonCells.some(cell => cell.isLeft);
+                    const hasRight = moonCells.some(cell => !cell.isLeft);
+                    
+                    // 只检查被分割的月饼
+                    if (hasLeft && hasRight) {
+                        const leftColored = moonCells.some(cell => cell.isLeft && cell.isColored);
+                        const rightColored = moonCells.some(cell => !cell.isLeft && cell.isColored);
+                        
+                        // 如果一个被分割的月饼两侧都被涂色，或者两侧都没被涂色（但整个被涂色的数量是对的），
+                        // 说明没有按照分割线取1份
+                        if ((leftColored && rightColored) || (!leftColored && !rightColored)) {
+                            allSplitMoonsHaveOnePart = false;
+                        }
+                    }
+                });
+                
+                if (!allSplitMoonsHaveOnePart) {
+                    showFeedback(false, 
+                        "快成功啦！", 
+                        `数量是对的，但要按照分割线所分的结果取1份哦！每个被分割的月饼只涂其中一部分。`);
+                    return;
+                }
+            }
 
             if (allSameSide) {
                 showFeedback(true, 
                     "你太厉害了！", 
-                    `完全正确！你找到了这盒月饼的<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>！记住哦，<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>就是把一个整体平均分成2份，表示其中1份。`);
+                    `完全正确！你找到了这盒月饼的<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>！记住哦，<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>就是把一个整体平均分成${selectedFraction.denominator}份，表示其中${selectedFraction.numerator}份。`);
             } else {
                 showFeedback(false, 
                     "快成功啦！", 
-                    `数量是对的，但要选择一整个部分哦！试着只涂左边或者只涂右边的格子。`);
+                    `数量是对的，但要选择一整个部分哦！试着只涂左边或者只涂右边的${targetCount}个月饼。`);
             }
         }
         
@@ -1119,7 +1240,8 @@
             isColoring = false;
             isAnimating = false;
             hasSplit = false;
-            splitLine = [];
+            splitLines = [];
+            currentSplitLine = [];
             currentOffsetLeft = 0;
             currentOffsetRight = 0;
             targetOffsetLeft = 0;
@@ -1129,13 +1251,23 @@
             canvas.style.cursor = 'default';
             
             // 重置按钮状态和样式
-            drawButton.disabled = false;
-            drawButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-            drawButton.classList.add('bg-primary', 'text-white');
+            drawButton.disabled = !isFractionSelected;
+            if (isFractionSelected) {
+                drawButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+                drawButton.classList.add('bg-primary', 'text-white');
+            } else {
+                drawButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+                drawButton.classList.remove('bg-primary', 'text-white');
+            }
             
-            eraserButton.disabled = true;
-            eraserButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-            eraserButton.classList.remove('bg-secondary', 'text-white');
+            eraseButton.disabled = !isFractionSelected;
+            if (isFractionSelected) {
+                eraseButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+                eraseButton.classList.add('bg-red-100', 'text-red-600');
+            } else {
+                eraseButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+                eraseButton.classList.remove('bg-red-100', 'text-red-600');
+            }
             
             colorButton.disabled = true;
             colorButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
@@ -1146,8 +1278,13 @@
             checkButton.classList.remove('bg-accent', 'text-white');
             
             // 重置提示和反馈
-            instructionText.innerHTML =
-                "第一步：点击画笔按钮，在盒子上画一条线，试着把这盒月饼平均分成两部分";
+            if (isFractionSelected) {
+                instructionText.innerHTML = 
+                    "太好了！想想你要把这盒月饼平均几份？现在请点击画笔按钮，然后在盒子上画线分一分。";
+            } else {
+                instructionText.innerHTML = 
+                    "第一步：请先选择要找出的分数，然后点击画笔按钮开始游戏";
+            }
             feedback.classList.add('hidden');
             
             // 重新初始化单元格
@@ -1158,46 +1295,56 @@
         }
         
         // 事件监听器：绘制模式
-        drawButton.addEventListener('click', () => {
+drawButton.addEventListener('click', () => {
             isDrawing = true;
+            isErasing = false;
             isColoring = false;
-            
+
+            // 启用涂色按钮
+            colorButton.disabled = false;
+            colorButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+            colorButton.classList.add('bg-secondary', 'text-white');
+
             // 更改光标样式为稍大的铅笔，调整热点位置使其与铅笔末端对齐
             canvas.style.cursor = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\' fill=\'%23EC4899\'%3E%3Cpath d=\'M21.65 4.75l-11.32 11.32-4.72-4.72 1.88-1.88 2.84 2.84 9.44-9.44 1.88 1.88z\'/%3E%3C/svg%3E") 5 28, auto';
-            
+
             instructionText.innerHTML =
-        "太棒了！现在请你在盒子上画一条线，试着把这盒月饼分一分，然后点击”橡皮“按钮可以擦除线条";
+        "太棒了！现在请你在盒子上画多条线，试着把这盒月饼分一分";
             
             // 更新按钮状态和样式
-            drawButton.disabled = true;
-            drawButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-            drawButton.classList.remove('bg-primary', 'text-white');
+            drawButton.disabled = false; // 允许用户继续画线
+            drawButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+            drawButton.classList.add('bg-primary', 'text-white');
             
-            eraserButton.disabled = false;
-            eraserButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-            eraserButton.classList.add('bg-secondary', 'text-white');
+            eraseButton.disabled = false;
+            eraseButton.classList.remove('opacity-50', 'cursor-not-allowed');
+            eraseButton.classList.add('bg-red-100', 'text-red-600');
+            eraseButton.classList.remove('bg-red-500');
         });
         
-        // 事件监听器：橡皮
-        eraserButton.addEventListener('click', () => {
-            isDrawing = false;
+        // 事件监听器：橡皮擦模式
+        eraseButton.addEventListener('click', () => {
             isErasing = true;
+            isDrawing = false;
+            isColoring = false;
             
-            // 设置橡皮光标
-            canvas.style.cursor = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\'%3E%3Crect x=\'8\' y=\'8\' width=\'16\' height=\'16\' fill=\'%23666\' stroke=\'%23000\' stroke-width=\'2\'/%3E%3C/svg%3E") 16 16, auto';
+            // 设置橡皮擦光标样式
+            canvas.style.cursor = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\'%3E%3Crect x=\'6\' y=\'10\' width=\'20\' height=\'16\' rx=\'2\' fill=\'%23FF4D4F\' fill-opacity=\'0.8\'/%3E%3Crect x=\'8\' y=\'6\' width=\'16\' height=\'6\' rx=\'1\' fill=\'%23333\'/%3E%3C/svg%3E") 16 16, auto';
             
             instructionText.innerHTML =
-                "现在请点击并拖动鼠标来擦除线条，擦完后可以继续画线";
+        "点击或拖动鼠标擦除不需要的分割线";
             
             // 更新按钮状态和样式
-            eraserButton.disabled = true;
-            eraserButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-            eraserButton.classList.remove('bg-secondary', 'text-white');
+            eraseButton.disabled = false;
+            eraseButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-red-100', 'text-red-600');
+            eraseButton.classList.add('bg-red-500', 'text-white');
             
             drawButton.disabled = false;
             drawButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
             drawButton.classList.add('bg-primary', 'text-white');
         });
+        
+
         
         // 事件监听器：涂色模式
         colorButton.addEventListener('click', () => {
@@ -1205,8 +1352,8 @@
             isDrawing = false;
             canvas.style.cursor = 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' width=\'32\' height=\'32\' viewBox=\'0 0 32 32\'%3E%3Ccircle cx=\'16\' cy=\'16\' r=\'12\' fill=\'%23EC4899\' fill-opacity=\'0.7\'/%3E%3C/svg%3E") 16 16, auto';
             
-            instructionText.innerHTML =
-                `真棒！请涂出你认为是这盒月饼的<span class="fraction"><span class="numerator">1</span><span class="denominator">2</span></span>的部分，涂好后点击"检查"按钮`;
+            instructionText.innerHTML = 
+                `真棒！请涂出你认为是这盒月饼的<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>的部分，涂好后点击"检查"按钮`;
             
             // 更新按钮状态和样式
             colorButton.disabled = true;
@@ -1251,28 +1398,14 @@
             const canvasY = y - rect.top;
             
             if (isDrawing) {
-                // 开始绘制分割线（可以从盒子外开始）
-                splitLine = [{ x: canvasX, y: canvasY }];
-                drawCanvas();
-            } else if (isErasing) {
-                // 橡皮擦模式：清除分割线
-                splitLine = [];
-                hasSplit = false;
-                // 重置所有单元格的分割状态
-                cells.forEach(cell => {
-                    cell.isHorizontalSplit = false;
-                    cell.isLeft = false;
-                    cell.isHalfMooncake = false;
-                });
-                
-                // 禁用涂色按钮
-                colorButton.disabled = true;
-                colorButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-                colorButton.classList.remove('bg-secondary', 'text-white');
-                
-                // 更新提示文本
-                instructionText.innerHTML = "线条已擦除！现在请点击<span class='text-primary font-bold'>画线</span>按钮，重新尝试分割月饼";
-                
+                // 如果当前正在绘制的分割线不为空，将其添加到分割线数组中
+                if (currentSplitLine.length > 0) {
+                    splitLines.push([...currentSplitLine]);
+                }
+                // 开始绘制新的分割线（可以从盒子外开始）
+                // 将起点对齐到最近的网格线
+                const snappedStartPoint = snapToGrid(canvasX, canvasY);
+                currentSplitLine = [{ x: snappedStartPoint.x, y: snappedStartPoint.y }];
                 drawCanvas();
             } else if (isColoring) {
                 // 涂色模式：找到点击的单元格
@@ -1288,6 +1421,49 @@
                         isAnimating = true;
                         updateAnimation();
                     }
+                }
+            } else if (isErasing) {
+                // 橡皮擦模式：删除与点击点接近的分割线或擦除涂色
+                const point = { x: canvasX, y: canvasY };
+                let removedLine = false;
+                let erasedColor = false;
+                
+                // 1. 首先检查是否需要删除正在绘制的分割线
+                if (currentSplitLine.length > 0) {
+                    currentSplitLine = [];
+                    removedLine = true;
+                }
+                
+                // 2. 如果没有删除正在绘制的分割线，则检查已完成的分割线
+                if (!removedLine) {
+                    // 从后往前遍历，确保正确更新数组索引
+                    for (let i = splitLines.length - 1; i >= 0; i--) {
+                        if (isPointNearLine(point, splitLines[i], 15)) {
+                            splitLines.splice(i, 1);
+                            removedLine = true;
+                            break; // 一次只删除一条线
+                        }
+                    }
+                }
+                
+                // 3. 检查是否需要擦除涂色
+                const col = Math.floor(canvasX / cellWidth);
+                const row = Math.floor(canvasY / cellHeight);
+                const index = row * cols + col;
+                
+                if (index >= 0 && index < cells.length && cells[index].isColored) {
+                    // 取消单元格的涂色状态
+                    cells[index].isColored = false;
+                    erasedColor = true;
+                    
+                    if (!isAnimating) {
+                        isAnimating = true;
+                        updateAnimation();
+                    }
+                }
+                
+                if (removedLine) {
+                    drawCanvas();
                 }
             }
         });
@@ -1307,9 +1483,16 @@
                 const canvasX = (x - rect.left) * scaleX;
                 const canvasY = (y - rect.top) * scaleY;
                 
-                // 添加点到分割线（可以超出盒子范围）
-                splitLine.push({ x: canvasX, y: canvasY });
-                drawCanvas();
+                // 将点对齐到最近的网格线
+                const snappedPoint = snapToGrid(canvasX, canvasY);
+                
+                // 如果当前分割线不为空且新点与最后一个点不同，才添加新点
+                if (currentSplitLine.length === 0 || 
+                    (Math.abs(snappedPoint.x - currentSplitLine[currentSplitLine.length - 1].x) > 1 || 
+                     Math.abs(snappedPoint.y - currentSplitLine[currentSplitLine.length - 1].y) > 1)) {
+                    currentSplitLine.push({ x: snappedPoint.x, y: snappedPoint.y });
+                    drawCanvas();
+                }
             } else if (isColoring) {
                 // 涂色模式：找到鼠标移动经过的单元格
                 const canvasX = x - rect.left;
@@ -1328,6 +1511,48 @@
                         updateAnimation();
                     }
                 }
+            } else if (isErasing) {
+                // 橡皮擦模式：擦除与移动路径接近的分割线或擦除涂色
+                const canvasX = x - rect.left;
+                const canvasY = y - rect.top;
+                const point = { x: canvasX, y: canvasY };
+                
+                // 1. 首先检查是否需要删除正在绘制的分割线
+                if (currentSplitLine.length > 0) {
+                    currentSplitLine = [];
+                    drawCanvas();
+                    return;
+                }
+                
+                // 2. 检查已完成的分割线
+                let removedAnyLine = false;
+                // 从后往前遍历，确保正确更新数组索引
+                for (let i = splitLines.length - 1; i >= 0; i--) {
+                    if (isPointNearLine(point, splitLines[i], 15)) {
+                        splitLines.splice(i, 1);
+                        removedAnyLine = true;
+                        // 继续检查，可能有多个分割线在擦除路径上
+                    }
+                }
+                
+                // 3. 检查是否需要擦除涂色
+                const col = Math.floor(canvasX / cellWidth);
+                const row = Math.floor(canvasY / cellHeight);
+                const index = row * cols + col;
+                
+                if (index >= 0 && index < cells.length && cells[index].isColored) {
+                    // 取消单元格的涂色状态
+                    cells[index].isColored = false;
+                    
+                    if (!isAnimating) {
+                        isAnimating = true;
+                        updateAnimation();
+                    }
+                }
+                
+                if (removedAnyLine) {
+                    drawCanvas();
+                }
             }
         });
         
@@ -1335,87 +1560,28 @@
         canvas.addEventListener('mouseup', () => {
             isMouseDown = false;
             
-            // 当用户完成画线，自动对齐到最近的网格线
-            if (isDrawing && splitLine.length > 1) {
-                alignSplitLineToGrid();
+            // 如果正在绘制模式且当前有分割线，将其添加到分割线数组并启用涂色按钮
+            if (isDrawing && currentSplitLine.length > 0) {
+                splitLines.push([...currentSplitLine]);
+                currentSplitLine = [];
+                
+                determineCellPositions();
+                
+                instructionText.innerHTML = 
+                    `太好了！现在请点击"涂<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>"按钮，然后涂出你认为是这盒月饼的<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>的部分`;
+                
+                // 启用涂色按钮
+                colorButton.disabled = false;
+                colorButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+                colorButton.classList.add('bg-secondary', 'text-white');
+                
+                drawCanvas();
             }
         });
         
         canvas.addEventListener('mouseout', () => {
             isMouseDown = false;
-            
-            // 当用户完成画线，自动对齐到最近的网格线
-            if (isDrawing && splitLine.length > 1) {
-                alignSplitLineToGrid();
-            }
         });
-        
-        // 触摸结束事件
-        canvas.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            isMouseDown = false;
-            
-            // 当用户完成画线，自动对齐到最近的网格线
-            if (isDrawing && splitLine.length > 1) {
-                alignSplitLineToGrid();
-            }
-        });
-        
-        // 辅助函数：将分割线对齐到最近的网格线
-        function alignSplitLineToGrid() {
-            if (splitLine.length < 2 || !cellWidth || !cellHeight) return;
-            
-            // 计算线条的起点和终点
-            const startPoint = splitLine[0];
-            const endPoint = splitLine[splitLine.length - 1];
-            
-            // 判断是横线还是竖线（比较x和y的变化范围）
-            const xDiff = Math.abs(endPoint.x - startPoint.x);
-            const yDiff = Math.abs(endPoint.y - startPoint.y);
-            
-            // 计算线条的平均位置
-            const avgX = (startPoint.x + endPoint.x) / 2;
-            const avgY = (startPoint.y + endPoint.y) / 2;
-            
-            // 确定最接近的网格线
-            let alignedLine = [];
-            
-            if (xDiff > yDiff) {
-                // 横线：对齐到最近的水平网格线
-                const gridY = Math.round(avgY / cellHeight) * cellHeight;
-                alignedLine = [
-                    { x: 0, y: gridY },
-                    { x: canvas.width, y: gridY }
-                ];
-            } else {
-                // 竖线：对齐到最近的垂直网格线
-                const gridX = Math.round(avgX / cellWidth) * cellWidth;
-                alignedLine = [
-                    { x: gridX, y: 0 },
-                    { x: gridX, y: canvas.height }
-                ];
-            }
-            
-            // 替换原来的分割线
-            splitLine = alignedLine;
-            
-            // 设置分割完成标志
-            hasSplit = true;
-            
-            // 确定每个单元格的位置（左侧/右侧或上侧/下侧）
-            determineCellPositions();
-            
-            // 启用涂色按钮
-            colorButton.disabled = false;
-            colorButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-            colorButton.classList.add('bg-secondary', 'text-white');
-            
-            // 更新提示文本
-            instructionText.innerHTML = "很好！现在请点击<span class='text-secondary font-bold'>涂出1/2</span>按钮，试着涂出这盒月饼的一半";
-            
-            // 重绘画布以显示对齐后的线条
-            drawCanvas();
-        }
         
         // 绑定触摸事件（支持移动设备）
         canvas.addEventListener('touchstart', (e) => {
@@ -1432,28 +1598,14 @@
             const canvasY = y - rect.top;
             
             if (isDrawing) {
-                // 开始绘制分割线
-                splitLine = [{ x: canvasX, y: canvasY }];
-                drawCanvas();
-            } else if (isErasing) {
-                // 橡皮擦模式：清除分割线
-                splitLine = [];
-                hasSplit = false;
-                // 重置所有单元格的分割状态
-                cells.forEach(cell => {
-                    cell.isHorizontalSplit = false;
-                    cell.isLeft = false;
-                    cell.isHalfMooncake = false;
-                });
-                
-                // 禁用涂色按钮
-                colorButton.disabled = true;
-                colorButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
-                colorButton.classList.remove('bg-secondary', 'text-white');
-                
-                // 更新提示文本
-                instructionText.innerHTML = "线条已擦除！现在请点击<span class='text-primary font-bold'>画线</span>按钮，重新尝试分割月饼";
-                
+                // 如果当前正在绘制的分割线不为空，将其添加到分割线数组中
+                if (currentSplitLine.length > 0) {
+                    splitLines.push([...currentSplitLine]);
+                }
+                // 开始绘制新的分割线
+                // 将起点对齐到最近的网格线
+                const snappedStartPoint = snapToGrid(canvasX, canvasY);
+                currentSplitLine = [{ x: snappedStartPoint.x, y: snappedStartPoint.y }];
                 drawCanvas();
             } else if (isColoring) {
                 // 涂色模式：找到点击的单元格
@@ -1469,6 +1621,49 @@
                         isAnimating = true;
                         updateAnimation();
                     }
+                }
+            } else if (isErasing) {
+                // 橡皮擦模式：删除与点击点接近的分割线或擦除涂色
+                const point = { x: canvasX, y: canvasY };
+                let removedLine = false;
+                let erasedColor = false;
+                
+                // 1. 首先检查是否需要删除正在绘制的分割线
+                if (currentSplitLine.length > 0) {
+                    currentSplitLine = [];
+                    removedLine = true;
+                }
+                
+                // 2. 如果没有删除正在绘制的分割线，则检查已完成的分割线
+                if (!removedLine) {
+                    // 从后往前遍历，确保正确更新数组索引
+                    for (let i = splitLines.length - 1; i >= 0; i--) {
+                        if (isPointNearLine(point, splitLines[i], 15)) {
+                            splitLines.splice(i, 1);
+                            removedLine = true;
+                            break; // 一次只删除一条线
+                        }
+                    }
+                }
+                
+                // 3. 检查是否需要擦除涂色
+                const col = Math.floor(canvasX / cellWidth);
+                const row = Math.floor(canvasY / cellHeight);
+                const index = row * cols + col;
+                
+                if (index >= 0 && index < cells.length && cells[index].isColored) {
+                    // 取消单元格的涂色状态
+                    cells[index].isColored = false;
+                    erasedColor = true;
+                    
+                    if (!isAnimating) {
+                        isAnimating = true;
+                        updateAnimation();
+                    }
+                }
+                
+                if (removedLine) {
+                    drawCanvas();
                 }
             }
         });
@@ -1488,9 +1683,16 @@
                 const canvasX = (x - rect.left) * scaleX;
                 const canvasY = (y - rect.top) * scaleY;
                 
-                // 添加点到分割线
-                splitLine.push({ x: canvasX, y: canvasY });
-                drawCanvas();
+                // 将点对齐到最近的网格线
+                const snappedPoint = snapToGrid(canvasX, canvasY);
+                
+                // 如果当前分割线不为空且新点与最后一个点不同，才添加新点
+                if (currentSplitLine.length === 0 || 
+                    (Math.abs(snappedPoint.x - currentSplitLine[currentSplitLine.length - 1].x) > 1 || 
+                     Math.abs(snappedPoint.y - currentSplitLine[currentSplitLine.length - 1].y) > 1)) {
+                    currentSplitLine.push({ x: snappedPoint.x, y: snappedPoint.y });
+                    drawCanvas();
+                }
             } else if (isColoring) {
                 // 涂色模式：找到触摸移动经过的单元格
                 const canvasX = x - rect.left;
@@ -1509,19 +1711,96 @@
                         updateAnimation();
                     }
                 }
+            } else if (isErasing) {
+                // 橡皮擦模式：擦除与移动路径接近的分割线或擦除涂色
+                const canvasX = x - rect.left;
+                const canvasY = y - rect.top;
+                const point = { x: canvasX, y: canvasY };
+                
+                // 1. 首先检查是否需要删除正在绘制的分割线
+                if (currentSplitLine.length > 0) {
+                    currentSplitLine = [];
+                    drawCanvas();
+                    return;
+                }
+                
+                // 2. 检查已完成的分割线
+                let removedAnyLine = false;
+                // 从后往前遍历，确保正确更新数组索引
+                for (let i = splitLines.length - 1; i >= 0; i--) {
+                    if (isPointNearLine(point, splitLines[i], 15)) {
+                        splitLines.splice(i, 1);
+                        removedAnyLine = true;
+                        // 继续检查，可能有多个分割线在擦除路径上
+                    }
+                }
+                
+                // 3. 检查是否需要擦除涂色
+                const col = Math.floor(canvasX / cellWidth);
+                const row = Math.floor(canvasY / cellHeight);
+                const index = row * cols + col;
+                
+                if (index >= 0 && index < cells.length && cells[index].isColored) {
+                    // 取消单元格的涂色状态
+                    cells[index].isColored = false;
+                    
+                    if (!isAnimating) {
+                        isAnimating = true;
+                        updateAnimation();
+                    }
+                }
+                
+                if (removedAnyLine) {
+                    drawCanvas();
+                }
             }
         });
         
         canvas.addEventListener('touchend', (e) => {
             e.preventDefault();
             isMouseDown = false;
+            
+            // 如果正在绘制模式且当前有分割线，将其添加到分割线数组并启用涂色按钮
+            if (isDrawing && currentSplitLine.length > 0) {
+                splitLines.push([...currentSplitLine]);
+                currentSplitLine = [];
+                
+                determineCellPositions();
+                
+                instructionText.innerHTML = 
+                    `太好了！现在请点击"涂<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>"按钮，然后涂出你认为是这盒月饼的<span class="fraction"><span class="numerator">${selectedFraction.numerator}</span><span class="denominator">${selectedFraction.denominator}</span></span>的部分`;
+                
+                // 启用涂色按钮
+                colorButton.disabled = false;
+                colorButton.classList.remove('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+                colorButton.classList.add('bg-secondary', 'text-white');
+                
+                drawCanvas();
+            }
         });
         
         // 窗口大小变化时重新设置Canvas
         window.addEventListener('resize', setupCanvas);
         
         // 初始化
-        initSlider();
+        // 初始禁用绘制按钮，直到选择分数
+        drawButton.disabled = true;
+        drawButton.classList.add('opacity-50', 'cursor-not-allowed', 'bg-gray-200', 'text-neutral');
+        drawButton.classList.remove('bg-primary', 'text-white');
+        
+        // 初始化分数选择按钮
+        initFractionButtons();
+        
+        // 设置初始指令文本
+        instructionText.innerHTML = 
+            "第一步：请先选择要找出的分数，然后点击画笔按钮开始游戏";
+        
+        // 添加返回按钮事件监听器
+        const backButton = document.getElementById('backButton');
+        backButton.addEventListener('click', () => {
+            window.location.href = 'index.html';
+        });
+        
         setupCanvas();
     </script>
 </body>
